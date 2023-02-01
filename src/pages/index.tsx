@@ -1,10 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '@/styles/Home.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import Layout from '@/components/layout';
 import utilStyles from '@/styles/utils.module.css';
 
+interface IPost {
+  id: String;
+  date: String;
+  title: String;
+}
+
+interface Props {
+  allPostsData: IPost[];
+}
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -15,7 +23,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home() {
+export default function Home({ allPostsData }: Props) {
   return (
     <Layout home>
       <Head>
@@ -24,17 +32,27 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
       <section className={utilStyles.headingMd}>
-          <p>
-            I am a passionate Full Stack Developer. I eat Nodejs, React, Graphql
-            and AWS.{' '}
-          </p>
-        </section>
-        <h3>
-          Read my first post <Link href="/posts/first-post">here</Link>
-        </h3>
-      </main>
+        <p>
+          I am a passionate Full Stack Developer. I eat Nodejs, React, Graphql
+          and AWS.{' '}
+        </p>
+      </section>
+
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }: IPost) => (
+            <li className={utilStyles.listItem} key={id.toString()}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   );
 }
