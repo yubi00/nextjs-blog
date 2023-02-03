@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getSortedPostsData } from '../lib/posts';
 import Layout from '@/components/layout';
 import utilStyles from '@/styles/utils.module.css';
+import Date from '@/components/date';
 
 interface IPost {
   id: String;
@@ -44,11 +45,13 @@ export default function Home({ allPostsData }: Props) {
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }: IPost) => (
             <li className={utilStyles.listItem} key={id.toString()}>
+              <Link href={`/posts/${id}`}>
               {title}
+              </Link>
               <br />
-              {id}
-              <br />
-              {date}
+              <div className={utilStyles.lightText}>
+                <Date dateString={date} />
+              </div>
             </li>
           ))}
         </ul>
