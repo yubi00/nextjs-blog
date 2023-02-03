@@ -49,9 +49,9 @@ export default function Home({ allPostsData }: Props) {
               {title}
               </Link>
               <br />
-              <div className={utilStyles.lightText}>
+              <small className={utilStyles.lightText}>
                 <Date dateString={date} />
-              </div>
+              </small>
             </li>
           ))}
         </ul>
