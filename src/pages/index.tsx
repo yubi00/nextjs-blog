@@ -11,7 +11,7 @@ interface IPost {
   title: String;
 }
 
-interface Props {
+export interface Props {
   allPostsData: IPost[];
 }
 
@@ -45,9 +45,7 @@ export default function Home({ allPostsData }: Props) {
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }: IPost) => (
             <li className={utilStyles.listItem} key={id.toString()}>
-              <Link href={`/posts/${id}`}>
-              {title}
-              </Link>
+              <Link href={`/posts/${id}`}>{title}</Link>
               <br />
               <small className={utilStyles.lightText}>
                 <Date dateString={date} />
