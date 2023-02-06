@@ -5,7 +5,7 @@ import Layout from '@/components/layout';
 import utilStyles from '@/styles/utils.module.css';
 import Date from '@/components/date';
 
-interface IPost {
+export interface IPost {
   id: String;
   date: String;
   title: String;

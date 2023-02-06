@@ -3,13 +3,14 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { IPost } from '@/pages';
 
-const postsDirectory = path.join(process.cwd(),'src', 'posts');
+const postsDirectory = path.join(process.cwd(), 'src', 'posts');
 
 export function getSortedPostsData() {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  const allPostsData: IPost[] = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '');
 
@@ -23,7 +24,8 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      date: matterResult.data.date,
+      title: matterResult.data.title,
     };
   });
   // Sort posts by date
